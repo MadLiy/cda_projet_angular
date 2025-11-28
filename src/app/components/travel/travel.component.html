@@ -1,0 +1,29 @@
+<button mat-raised-button color="primary" (click)="openTravelForm()">
+  ➕ Ajouter un voyage
+</button><br>
+
+@for (travel of travels(); track travel.id) {
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ travel.title }}</mat-card-title>
+      <mat-card-subtitle>{{ travel.destination }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p>{{ travel.startDate | date }} → {{ travel.endDate | date }}</p>
+      <p>{{ travel.description }}</p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-stroked-button color="primary" (click)="openTravelForm(travel)">
+        Modifier
+      </button>
+      <button mat-stroked-button color="warn" (click)="confirmDelete(travel.id)">
+        Supprimer
+      </button>
+    </mat-card-actions>
+
+    <mat-divider></mat-divider>
+    <app-step-component [travelId]="travel.id"></app-step-component>
+  </mat-card>
+}

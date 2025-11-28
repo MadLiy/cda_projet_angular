@@ -1,0 +1,47 @@
+.activities {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.error {
+  color: #c0392b;
+}
+
+.activity-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 12px 14px;
+  border: 1px solid #e2e2e2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.activity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: #ffe4b5;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.status.done {
+  background: #a7e43b;
+  color: #164479;
+}
+
+.description {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+.time {
+  font-size: 13px;
+  opacity: 0.7;
+}

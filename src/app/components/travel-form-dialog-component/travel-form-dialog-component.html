@@ -1,0 +1,46 @@
+<mat-card>
+    <form [formGroup]="travelForm" (ngSubmit)="submit()">
+    <mat-form-field appearance="fill">
+        <mat-label>Titre du voyage</mat-label>
+        <input matInput formControlName="title" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Destination</mat-label>
+        <input matInput formControlName="destination" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Date de début</mat-label>
+        <input matInput [matDatepicker]="startPicker" formControlName="startDate">
+        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Date de fin</mat-label>
+        <input matInput [matDatepicker]="endPicker" formControlName="endDate">
+        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Image URL</mat-label>
+        <input matInput formControlName="imageUrl">
+    </mat-form-field>
+
+    <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit">
+        {{ data.travel ? 'Modifier le voyage' : 'Créer un voyage' }}
+        </button>
+        <button mat-stroked-button color="warn" type="button" (click)="close()">
+        Annuler
+        </button>
+    </div>
+    </form>
+</mat-card>

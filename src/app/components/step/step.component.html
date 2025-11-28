@@ -1,0 +1,42 @@
+<div class="steps-container">
+  <div class="steps-header">
+    <h3>🗺️ Étapes du voyage</h3>
+    <button mat-raised-button color="primary" (click)="openStepForm()">
+        ➕ Ajouter une étape
+    </button>
+</div>
+
+  @if (loading()) {
+    <div>Chargement des étapes...</div>
+  }
+
+  @if (error()) {
+    <div class="error">{{ error() }}</div>
+  }
+
+<div class="kanban">
+  @for (step of steps(); track step.id) {
+    <div class="step-column">
+      <h4>{{ step.name }}</h4>
+      <div class="step-actions">
+        <button mat-stroked-button color="primary" (click)="openStepForm(step)">
+          Modifier
+        </button>
+        <button mat-stroked-button color="warn" (click)="confirmDelete(step.id)">
+          Supprimer
+        </button>
+      </div>
+
+      @if (!step.activities || step.activities.length === 0) {
+        <div class="empty">Aucune activité prévue</div>
+      }
+
+      <app-activity-component
+        [travelId]="travelId"
+        [stepId]="step.id">
+      </app-activity-component>
+
+    </div>
+  }
+</div>
+</div>

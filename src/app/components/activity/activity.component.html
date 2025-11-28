@@ -1,0 +1,46 @@
+<div class="activities-header">
+  <h4>Activités prévues</h4>
+  <button mat-raised-button color="primary" (click)="openActivityDialog()">
+    Ajouter une activité
+  </button>
+</div>
+
+<div class="activities">
+  @if (loading()) {
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  }
+
+  @if (error()) {
+    <div class="error">{{ error() }}</div>
+  }
+
+  @for (activity of activities(); track activity.id) {
+    <mat-card class="activity-card">
+      <mat-card-header>
+        <mat-card-title>{{ activity.title }}</mat-card-title>
+        <mat-card-subtitle>
+          <span [class.done]="activity.status === 'faite'">{{ activity.status }}</span>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>{{ activity.description }}</p>
+        @if (activity.schedule) {
+          <p>🕒 {{ activity.schedule }}</p>
+        }
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-stroked-button color="primary" (click)="openActivityDialog(activity)">
+          Modifier
+        </button>
+        <button mat-stroked-button color="warn" (click)="confirmDelete(activity.id)">
+          Supprimer
+        </button>
+        <button mat-stroked-button (click)="toggleStatus(activity)">
+          {{ activity.status === 'prevue' ? 'Marquer faite' : 'Marquer prévue' }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  }
+</div>

@@ -1,0 +1,22 @@
+<mat-card>
+    <form [formGroup]="stepForm" (ngSubmit)="submit()">
+    <mat-form-field appearance="fill">
+        <mat-label>Nom de l'étape</mat-label>
+        <input matInput formControlName="name" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Ordre</mat-label>
+        <input type="number" matInput formControlName="order" required>
+    </mat-form-field>
+
+    <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit">
+        {{ data.step ? 'Modifier l\'étape' : 'Créer l\'étape' }}
+        </button>
+        <button mat-stroked-button color="warn" type="button" (click)="close()">
+        Annuler
+        </button>
+    </div>
+    </form>
+</mat-card>

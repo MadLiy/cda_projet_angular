@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>{{ data.activity ? 'Modifier activité' : 'Nouvelle activité' }}</h2>
+
+<form [formGroup]="activityForm" (ngSubmit)="submit()">
+<mat-form-field appearance="fill">
+    <mat-label>Titre</mat-label>
+    <input matInput formControlName="title" placeholder="Randonnée" required>
+    @if(activityForm.get('title')?.hasError('required')){
+        <mat-error>
+            Le titre est obligatoire
+        </mat-error>
+
+    }
+    @if(activityForm.get('title')?.hasError('invalidTitle')){
+        <mat-error>
+            {{ activityForm.get('title')?.getError('invalidTitle') }}
+        </mat-error>
+    }
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description" placeholder="Dans les bois"></textarea>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+    <mat-label>Horaire</mat-label>
+    <input matInput formControlName="schedule" placeholder="11:00AM">
+</mat-form-field>
+
+<div class="dialog-actions">
+    <button mat-raised-button color="primary" type="submit">{{ data.activity ? 'Modifier' : 'Ajouter' }}</button>
+    <button mat-stroked-button type="button" (click)="dialogRef.close()">Annuler</button>
+</div>
+</form>
