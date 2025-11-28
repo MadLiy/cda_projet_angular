@@ -4,6 +4,9 @@
     <button mat-raised-button color="primary" (click)="openStepForm()">
         ➕ Ajouter une étape
     </button>
+    <button mat-raised-button color="primary" class="discover-btn" routerLink="/travels">
+      Revenir a la liste des voyages.
+    </button>
 </div>
 
   @if (loading()) {
@@ -26,10 +29,6 @@
           Supprimer
         </button>
       </div>
-
-      @if (!step.activities || step.activities.length === 0) {
-        <div class="empty">Aucune activité prévue</div>
-      }
 
       <app-activity-component
         [travelId]="travelId"

@@ -7,10 +7,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirmDialog/confirmDialog.component';
 import { Store } from '@ngrx/store';
 import { addNotification } from '../../stores/notifications/notification.actions';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-step-component',
-  imports: [ActivityComponent],
+  imports: [ActivityComponent, RouterLink],
   templateUrl: './step.component.html',
   styleUrl: './step.component.css',
 })

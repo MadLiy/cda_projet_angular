@@ -94,7 +94,7 @@ export class ActivityComponent implements OnInit {
     this.travelService.updateActivityStatus(this.travelId, this.stepId, activity.id, newStatus)
       .subscribe(updated => {
         this.activities.update(prev => prev.map(a => a.id === activity.id ? updated : a));
-        this.store.dispatch(addNotification({ message: `Activité supprimée.` }));
+        this.store.dispatch(addNotification({ message: `Status de l'activité passé à ${newStatus}.` }));
       });
   }
 

@@ -15,6 +15,7 @@ describe('TravelComponent', () => {
     fixture = TestBed.createComponent(TravelComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   it('should create', () => {

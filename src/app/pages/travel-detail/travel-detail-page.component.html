@@ -1,26 +1,3 @@
-@if(travel){
-    <div class="travel-detail">
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>{{ travel.title }}</mat-card-title>
-          <mat-card-subtitle>{{ travel.destination }}</mat-card-subtitle>
-        </mat-card-header>
-    
-        <mat-card-content>
-          <p>{{ travel.startDate | date }} → {{ travel.endDate | date }}</p>
-          <p>{{ travel.description }}</p>
-        </mat-card-content>
-    
-        <mat-divider></mat-divider>
-    
-        <h3>🗺️ Étapes du voyage</h3>
-        <app-step-component [travelId]="travel.id"></app-step-component>
-      </mat-card>
-    </div>
-}
-@if(loading()){
-    <div>Chargement du voyage...</div>
-}
-@if(error()){
-    <div class="error">{{ error() }}</div>
+@if (travel) {
+  <app-step-component [travelId]="travel.id"></app-step-component>
 }

@@ -1,9 +1,7 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { TravelService } from '../../services/travel.service';
 import { Travel } from '../../models/travel.model';
 import { CommonModule } from '@angular/common';
-import { StepComponent } from '../step/step.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,13 +14,15 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirmDialog/confirmDialog.component';
 import { TravelFormDialogComponent } from '../travel-form-dialog-component/travel-form-dialog-component';
+import { RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { addNotification } from '../../stores/notifications/notification.actions';
 
 @Component({
   selector: 'app-travel-component',
   standalone: true,
   imports: [
     CommonModule, 
-    StepComponent,
     ReactiveFormsModule,
     FormsModule,
     MatFormFieldModule,
@@ -33,7 +33,8 @@ import { TravelFormDialogComponent } from '../travel-form-dialog-component/trave
     MatCardModule,
     MatProgressSpinnerModule,
     MatDividerModule,
-    MatDialogModule
+    MatDialogModule,
+    RouterLink,
   ],
   templateUrl: './travel.component.html',
   styleUrl: './travel.component.css',
@@ -45,7 +46,7 @@ export class TravelComponent implements OnInit{
   protected loading = signal<boolean>(true);
   protected error = signal<string | null>(null);
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private store: Store) {}
 
   ngOnInit(): void {
     this.loadTravels();
@@ -57,7 +58,6 @@ export class TravelComponent implements OnInit{
 
     this.travelService.getAllTravels().subscribe({
       next: async (travels) => {
-        await new Promise(resolve => setTimeout(resolve,1000));
         this.travels.set(travels);
         this.loading.set(false);
       },
@@ -73,6 +73,8 @@ export class TravelComponent implements OnInit{
     this.travelService.createTravel(travel).subscribe({
       next: (created) => {
         this.travels.update(prev => [...prev, created]);
+        this.store.dispatch(addNotification({ message: `Voyage crée.` }));
+
       },
       error: () => this.error.set("Erreur lors de la création du voyage")
     });
@@ -84,6 +86,7 @@ export class TravelComponent implements OnInit{
         this.travels.update(prev =>
           prev.map(t => t.id === id ? updated : t)
         );
+        this.store.dispatch(addNotification({ message: `Voyage modifié.` }));
       },
       error: () => this.error.set("Erreur lors de la mise à jour du voyage")
     });
@@ -93,6 +96,7 @@ export class TravelComponent implements OnInit{
     this.travelService.deleteTravel(id).subscribe({
       next: () => {
         this.travels.update(prev => prev.filter(t => t.id !== id));
+        this.store.dispatch(addNotification({ message: `Voyage supprimée.` }));
       },
       error: () => this.error.set("Erreur lors de la suppression du voyage")
     });

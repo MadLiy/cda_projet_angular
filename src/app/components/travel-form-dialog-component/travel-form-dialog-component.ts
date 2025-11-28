@@ -37,7 +37,10 @@ export class TravelFormDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: { travel?: Travel }
   ) {
     this.travelForm = this.fb.group({
-      title: [data.travel?.title || '', Validators.required, travelTitleValidator],
+      title: [
+        data.travel?.title || '', 
+        [Validators.required, travelTitleValidator()]
+      ],
       destination: [data.travel?.destination || '', Validators.required],
       description: [data.travel?.description || ''],
       startDate: [data.travel?.startDate || null],

@@ -15,9 +15,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatCardModule,
     MatButtonModule,
     MatDividerModule,
-    StepComponent
-  ],
-  templateUrl: './travel-detail-page.component.html'
+    StepComponent],
+  templateUrl: './travel-detail-page.component.html',
 })
 export class TravelDetailPageComponent implements OnInit {
  protected travel?: Travel;
@@ -49,5 +48,5 @@ export class TravelDetailPageComponent implements OnInit {
         this.router.navigate(['/404']);
       }
     });
-  }
+  } 
 }
