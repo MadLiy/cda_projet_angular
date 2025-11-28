@@ -1,34 +1,38 @@
-<h2 mat-dialog-title>{{ data.activity ? 'Modifier activité' : 'Nouvelle activité' }}</h2>
+<div class="activity-dialog-container">
+  <h2 mat-dialog-title class="dialog-title">
+    {{ data.activity ? 'Modifier activité' : 'Nouvelle activité' }}
+  </h2>
 
-<form [formGroup]="activityForm" (ngSubmit)="submit()">
-<mat-form-field appearance="fill">
-    <mat-label>Titre</mat-label>
-    <input matInput formControlName="title" placeholder="Randonnée" required>
-    @if(activityForm.get('title')?.hasError('required')){
-        <mat-error>
-            Le titre est obligatoire
-        </mat-error>
+  <form [formGroup]="activityForm" (ngSubmit)="submit()" class="activity-form">
 
-    }
-    @if(activityForm.get('title')?.hasError('invalidTitle')){
-        <mat-error>
-            {{ activityForm.get('title')?.getError('invalidTitle') }}
-        </mat-error>
-    }
-</mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Titre</mat-label>
+      <input matInput formControlName="title" placeholder="Randonnée" required>
+      <mat-error *ngIf="activityForm.get('title')?.hasError('required')">
+        Le titre est obligatoire
+      </mat-error>
+      <mat-error *ngIf="activityForm.get('title')?.hasError('invalidTitle')">
+        {{ activityForm.get('title')?.getError('invalidTitle') }}
+      </mat-error>
+    </mat-form-field>
 
-<mat-form-field appearance="fill">
-    <mat-label>Description</mat-label>
-    <textarea matInput formControlName="description" placeholder="Dans les bois"></textarea>
-</mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" placeholder="Dans les bois"></textarea>
+    </mat-form-field>
 
-<mat-form-field appearance="fill">
-    <mat-label>Horaire</mat-label>
-    <input matInput formControlName="schedule" placeholder="11:00AM">
-</mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Horaire</mat-label>
+      <input matInput formControlName="schedule" placeholder="11:00AM">
+    </mat-form-field>
 
-<div class="dialog-actions">
-    <button mat-raised-button color="primary" type="submit">{{ data.activity ? 'Modifier' : 'Ajouter' }}</button>
-    <button mat-stroked-button type="button" (click)="dialogRef.close()">Annuler</button>
+    <div class="dialog-actions">
+      <button mat-raised-button color="primary" type="submit">
+        {{ data.activity ? 'Modifier' : 'Ajouter' }}
+      </button>
+      <button mat-stroked-button type="button" (click)="dialogRef.close()">
+        Annuler
+      </button>
+    </div>
+  </form>
 </div>
-</form>

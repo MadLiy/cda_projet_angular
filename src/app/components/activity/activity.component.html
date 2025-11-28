@@ -1,50 +1,53 @@
-<div class="activities-header">
-  <h4>Activités prévues</h4>
-</div>
+<div class="activities-container">
 
-<div class="activities">
-  @if (loading()) {
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  <div class="activities-header">
+    <h4>Activités prévues</h4>
+    <button mat-raised-button color="primary" (click)="openActivityDialog()">
+      ➕ Ajouter une activité
+    </button>
+  </div>
+
+  @if(loading()) {
+    <div class="loading-spinner">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+      <span>Chargement des activités...</span>
+    </div>
   }
 
-  @if (error()) {
+  @if(error()) {
     <div class="error">{{ error() }}</div>
   }
 
-  @if (!loading() && !error() && (!activities() || activities().length === 0)) {
+  @if(!loading() && !error() && (!activities() || activities().length === 0)) {
     <p class="no-activity no-step">Aucune activité prévue</p>
   }
-  <button mat-raised-button color="primary" (click)="openActivityDialog()">
-    Ajouter une activité
-  </button>
 
-  @for (activity of activities(); track activity.id) {
-    <mat-card class="activity-card">
-      <mat-card-header>
-        <mat-card-title>{{ activity.title }}</mat-card-title>
-        <mat-card-subtitle>
-          <span [class.done]="activity.status === 'faite'">{{ activity.status }}</span>
-        </mat-card-subtitle>
-      </mat-card-header>
+  <div class="activities-list">
+    @for(activity of activities(); track activity.id) {
+      <mat-card class="activity-card">
+        <mat-card-header>
+          <mat-card-title>{{ activity.title }}</mat-card-title>
+          <mat-card-subtitle>
+            <span [class.done]="activity.status === 'faite'">{{ activity.status }}</span>
+          </mat-card-subtitle>
+        </mat-card-header>
 
-      <mat-card-content>
-        <p>{{ activity.description }}</p>
-        @if (activity.schedule) {
-          <p>🕒 {{ activity.schedule }}</p>
-        }
-      </mat-card-content>
+        <mat-card-content>
+          <p>{{ activity.description }}</p>
+          @if(activity.schedule) {
+            <p>🕒 {{ activity.schedule }}</p>
+          }
+        </mat-card-content>
 
-      <mat-card-actions>
-        <button mat-stroked-button color="primary" (click)="openActivityDialog(activity)">
-          Modifier
-        </button>
-        <button mat-stroked-button color="warn" (click)="confirmDelete(activity.id)">
-          Supprimer
-        </button>
-        <button mat-stroked-button (click)="toggleStatus(activity)">
-          {{ activity.status === 'prevue' ? 'Marquer faite' : 'Marquer prévue' }}
-        </button>
-      </mat-card-actions>
-    </mat-card>
-  }
+        <mat-card-actions class="activity-actions">
+          <button mat-stroked-button color="primary" (click)="openActivityDialog(activity)">Modifier</button>
+          <button mat-stroked-button color="warn" (click)="confirmDelete(activity.id)">Supprimer</button>
+          <button mat-stroked-button (click)="toggleStatus(activity)">
+            {{ activity.status === 'prevue' ? 'Marquer faite' : 'Marquer prévue' }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+
 </div>

@@ -1,34 +1,64 @@
 .steps-container {
-  margin-top: 20px;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.steps-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .error {
-  color: #d9534f;
-  margin-bottom: 10px;
+  color: red;
+  text-align: center;
+  font-weight: bold;
+}
+
+.no-step {
+  text-align: center;
+  font-style: italic;
+  color: #555;
 }
 
 .kanban {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px;
-  margin-top: 15px;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.step-column {
-  background: #f7f9fc;
-  border-radius: 12px;
-  padding: 12px;
-  border: 1px solid #e2e6ee;
+.step-card {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 8px;
+  min-width: 250px;
+  flex: 1 1 250px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-.step-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 12px;
-}
-
-.empty {
-  font-style: italic;
-  opacity: 0.6;
-  padding: 10px;
+.step-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
 }

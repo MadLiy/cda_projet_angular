@@ -1,17 +1,23 @@
 <div class="steps-container">
+
   <div class="steps-header">
     <h3>🗺️ Étapes du voyage</h3>
-    <button mat-raised-button color="primary" (click)="openStepForm()">➕ Ajouter une étape</button>
-    <button mat-raised-button color="primary" class="discover-btn" routerLink="/travels">
-      Revenir à la liste des voyages.
-    </button>
+    <div class="header-buttons">
+      <button mat-raised-button color="primary" (click)="openStepForm()">➕ Ajouter une étape</button>
+      <button mat-raised-button color="primary" class="discover-btn" routerLink="/travels">
+        Revenir à la liste des voyages
+      </button>
+    </div>
   </div>
 
-  @if (loading()) {
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  @if(loading()) {
+    <div class="loading-spinner">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+      <span>Chargement des étapes...</span>
+    </div>
   }
 
-  @if (error()) {
+  @if(error()) {
     <div class="error">{{ error() }}</div>
   }
 
@@ -20,16 +26,21 @@
   }
 
   <div class="kanban">
-    @for (step of steps(); track step.id) {
+    @for(step of steps(); track step.id) {
       <div class="step-column step-card">
         <h4>{{ step.name }}</h4>
+
         <div class="step-actions">
           <button mat-stroked-button color="primary" (click)="openStepForm(step)">Modifier</button>
           <button mat-stroked-button color="warn" (click)="confirmDelete(step.id)">Supprimer</button>
         </div>
 
-        <app-activity-component [travelId]="travelId" [stepId]="step.id"></app-activity-component>
+        <app-activity-component 
+          [travelId]="travelId" 
+          [stepId]="step.id">
+        </app-activity-component>
       </div>
     }
   </div>
+
 </div>
