@@ -8,10 +8,11 @@ import { ConfirmDialogComponent } from '../confirmDialog/confirmDialog.component
 import { Store } from '@ngrx/store';
 import { addNotification } from '../../stores/notifications/notification.actions';
 import { RouterLink } from '@angular/router';
+import { MatProgressSpinner } from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-step-component',
-  imports: [ActivityComponent, RouterLink],
+  imports: [ActivityComponent, RouterLink, MatProgressSpinner],
   templateUrl: './step.component.html',
   styleUrl: './step.component.css',
 })
@@ -19,9 +20,9 @@ export class StepComponent implements OnInit {
 
     @Input() travelId!: number;
     private readonly travelService = inject(TravelService);
-    protected steps = signal<Step[]>([]);
-    protected loading = signal<boolean>(true);
-    protected error = signal<string | null>(null);
+    public steps = signal<Step[]>([]);
+    public loading = signal<boolean>(true);
+    public error = signal<string | null>(null);
 
     constructor(private dialog: MatDialog, private store: Store) {}
 

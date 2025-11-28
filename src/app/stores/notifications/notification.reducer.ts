@@ -1,5 +1,5 @@
-import { createReducer, on } from '@ngrx/store';
-import { addNotification, removeNotification } from './notification.actions';
+import { createReducer, on } from "@ngrx/store";
+import { addNotification, removeNotification } from "./notification.actions";
 
 export interface Notification {
   id: number;
@@ -8,20 +8,22 @@ export interface Notification {
 
 export interface NotificationState {
   notifications: Notification[];
+  nextId: number;
 }
 
 export const initialState: NotificationState = {
-  notifications: []
+  notifications: [],
+  nextId: 0
 };
-
-let nextId = 0;
 
 export const notificationReducer = createReducer(
   initialState,
-  on(addNotification, (state, { message }) => ({
-    notifications: [...state.notifications, { id: nextId++, message }]
+  on(addNotification, (state, { message }): NotificationState => ({
+    notifications: [...state.notifications, { id: state.nextId, message }],
+    nextId: state.nextId + 1
   })),
-  on(removeNotification, (state, { id }) => ({
+  on(removeNotification, (state, { id }): NotificationState => ({
+    ...state,
     notifications: state.notifications.filter(n => n.id !== id)
   }))
 );

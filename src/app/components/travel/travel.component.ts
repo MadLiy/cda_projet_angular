@@ -42,9 +42,9 @@ import { addNotification } from '../../stores/notifications/notification.actions
 export class TravelComponent implements OnInit{
 
   private readonly travelService = inject(TravelService);
-  protected travels = signal<Travel[]>([]);
-  protected loading = signal<boolean>(true);
-  protected error = signal<string | null>(null);
+  public travels = signal<Travel[]>([]);
+  public loading = signal<boolean>(true);
+  public error = signal<string | null>(null);
 
   constructor(private dialog: MatDialog, private store: Store) {}
 

@@ -24,9 +24,9 @@ export class ActivityComponent implements OnInit {
 
   private readonly travelService = inject(TravelService);
 
-  protected activities = signal<Activity[]>([]);
-  protected loading = signal<boolean>(true);
-  protected error = signal<string | null>(null);
+  public activities = signal<Activity[]>([]);
+  public loading = signal<boolean>(true);
+  public error = signal<string | null>(null);
 
   constructor(private dialog: MatDialog, private store: Store) {}
 

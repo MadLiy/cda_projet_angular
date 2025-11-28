@@ -1,41 +1,35 @@
 <div class="steps-container">
   <div class="steps-header">
     <h3>🗺️ Étapes du voyage</h3>
-    <button mat-raised-button color="primary" (click)="openStepForm()">
-        ➕ Ajouter une étape
-    </button>
+    <button mat-raised-button color="primary" (click)="openStepForm()">➕ Ajouter une étape</button>
     <button mat-raised-button color="primary" class="discover-btn" routerLink="/travels">
-      Revenir a la liste des voyages.
+      Revenir à la liste des voyages.
     </button>
-</div>
+  </div>
 
   @if (loading()) {
-    <div>Chargement des étapes...</div>
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
   }
 
   @if (error()) {
     <div class="error">{{ error() }}</div>
   }
 
-<div class="kanban">
-  @for (step of steps(); track step.id) {
-    <div class="step-column">
-      <h4>{{ step.name }}</h4>
-      <div class="step-actions">
-        <button mat-stroked-button color="primary" (click)="openStepForm(step)">
-          Modifier
-        </button>
-        <button mat-stroked-button color="warn" (click)="confirmDelete(step.id)">
-          Supprimer
-        </button>
-      </div>
-
-      <app-activity-component
-        [travelId]="travelId"
-        [stepId]="step.id">
-      </app-activity-component>
-
-    </div>
+  @if(!steps() || steps().length === 0 && !loading()) {
+    <p class="no-step">Aucune étape prévue</p>
   }
-</div>
+
+  <div class="kanban">
+    @for (step of steps(); track step.id) {
+      <div class="step-column step-card">
+        <h4>{{ step.name }}</h4>
+        <div class="step-actions">
+          <button mat-stroked-button color="primary" (click)="openStepForm(step)">Modifier</button>
+          <button mat-stroked-button color="warn" (click)="confirmDelete(step.id)">Supprimer</button>
+        </div>
+
+        <app-activity-component [travelId]="travelId" [stepId]="step.id"></app-activity-component>
+      </div>
+    }
+  </div>
 </div>

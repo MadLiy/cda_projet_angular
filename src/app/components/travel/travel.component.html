@@ -2,6 +2,22 @@
   ➕ Ajouter un voyage
 </button><br><br>
 
+@if (loading()){
+  <div>
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+
+}
+@if (error()){
+  <div>
+    <div class="error">{{ error() }}</div>
+  </div>
+}
+@if(!travels() || travels().length === 0){
+  <div>
+    <p class="no-travel">Aucun voyage prévu</p>
+  </div>
+}
 <div class="travel-list">
   @for (travel of travels(); track travel.id) {
     <mat-card class="travel-card">
